@@ -1,0 +1,51 @@
+trigger: none
+
+# Root level variables
+variables:
+- name: RootLevel
+  value: 'RootLevel'
+
+stages:
+- stage: StageOne
+  variables:
+  - name: StageLevelStageOne
+    value: 'StageOneValue' 
+  displayName: 'First Stage'
+  jobs:
+  - job: JobOne
+    displayName: 'First Job'
+    variables:
+    - name: JobLevelJobOne
+      value: 'JobOneValue'
+    pool:
+     vmImage: 'windows-latest'
+    steps:
+    - powershell: |
+       Write-Host("Root Level:{0}" -f '$(RootLevel)')
+       Write-Host("Stage Level:{0}" -f '$(StageLevelStageOne)')
+       Write-Host("Job Level:{0}" -f '$(JobLevelJobOne)')
+  
+  - job: JobTwo
+    displayName: 'Second Job'
+    variables:
+    - name: JobLevelJobTwo
+      value: 'JobTwoValue'
+    pool:
+     vmImage: 'windows-latest'
+    steps:
+    - powershell: |
+       Write-Host("Root Level:{0}" -f '$(RootLevel)')
+       Write-Host("Stage Level:{0}" -f '$(StageLevelStageOne)')
+       Write-Host("Job Level:{0}" -f '$(JobLevelJobTwo)')
+
+       # JobOne is inaccessible; prints variable name $(JobLevelJobOne) as its Macro exp.
+       Write-Host("Job Level:{0}" -f '$(JobLevelJobOne)')
+
+       # JobOne is inaccessible; prints empty as its Template exp.
+       Write-Host("Job Level:{0}" -f '${{ variables.JobLevelJobOne }}')
+    - script: echo 'Hello World'
+      condition: eq(variables.StageLevelStageOne,'StageOneValue')
+      displayName: 'Condition should succeed'
+    - script: echo 'Hello World'
+      condition: eq(variables.StageLevelStageOne,'StageTwoValue')
+      displayName: 'Condition should fail'

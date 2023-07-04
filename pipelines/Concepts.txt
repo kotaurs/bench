@@ -4,11 +4,13 @@ Variables:
 	variables
 	- name: CompanyName
 	  value: 'Microsoft'  
-2. Variable location
-	- Root
-	- Stage
-	- Job
+2. Variable location & scope
+	- Root - Make it available to all jobs in the pipeline.
+	- Stage - Make it available only to a specific stage.
+	- Job - Make it available only to a specific job
 3. Variable Syntax types
-	- Macro - Run time and before task execution. $(MacroVariable)
-	- Expression - Compile time ${{variables.var}}
+	- Macro - Run time and before task execution. $(MacroVariable) => Set right side
+	- Template Expression - Compile time ${{variables.var}} => Set both sides
 	- Runtime - Run time and applicable for conditions and expressions $[variables.var]
+
+4. 
