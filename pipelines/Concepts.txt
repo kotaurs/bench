@@ -1,0 +1,14 @@
+Variables:
+
+1. Variable declaration
+	variables
+	- name: CompanyName
+	  value: 'Microsoft'  
+2. Variable location
+	- Root
+	- Stage
+	- Job
+3. Variable Syntax types
+	- Macro - Run time and before task execution. $(MacroVariable)
+	- Expression - Compile time ${{variables.var}}
+	- Runtime - Run time and applicable for conditions and expressions $[variables.var]
