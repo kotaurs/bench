@@ -1,0 +1,19 @@
+trigger: none
+
+variables:
+- name: CompanyName
+  value: 'Microsoft'
+
+stages:
+- stage: BuildStage
+  variables:
+  - name: StageVariable
+    value: 'StageValue'
+  jobs:
+  - job: RunBuildJob
+    pool: 
+     vmImage: 'windows-latest'
+    steps:
+    - powershell: |
+       Write-Host('Hello World!');
+    
