@@ -13,4 +13,4 @@ Variables:
 	- Template Expression - Compile time ${{variables.var}} => Set both sides
 	- Runtime - Run time and applicable for conditions and expressions $[variables.var]
 
-4. 
+4. Need to learn
